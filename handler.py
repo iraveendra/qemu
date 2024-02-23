@@ -1,43 +1,29 @@
 import json
+import urllib
 
 def handle(req):
+    urlstring = urllib.unquote(req).decode('utf8').strip('payload=')
+    response = json.loads(urlstring)
     data = {
-        "text": "Serverless Message",
-        "attachments": [{
-            "title": "The Awesome world of Cloud Computing! COEN 241",
-            "fields": [{
-                "title": "Amazing Level",
-                "value": "100",
-                "short": True
-            }],
-            "author_name": "Inchara Raveend",
-            "author_icon": "https://avatars.githubusercontent.com/u/149436689?v=4",
-            "image_url": "https://avatars.githubusercontent.com/u/149436689?v=4"
-        },
-        {
-            "title": "About COEN 241",
-            "text": "COEN 241 is the most awesome class ever!."
-        },
-        {
-            "fallback": "Would you recommend COEN 241 to your friends?",
-            "title": "Would you recommend COEN 241 to your friends?",
-            "callback_id": "response123",
-            "color": "#3AA3E3",
-            "attachment_type": "default",
-            "actions": [
-                {
-                    "name": "recommend",
-                    "text": "Of Course!",
-                    "type": "button",
-                    "value": "recommend"
-                },
-                {
-                    "name": "definitely",
-                    "text": "Most Definitely!",
-                    "type": "button",
-                    "value": "definitely"
-                }
-            ]
-        }]
+        "attachments": [
+            {
+                "replace_original": True,
+                "response_type": "ephemeral",
+                "fallback": "Required plain-text summary of the attachment.",
+                "color": "#36a64f",
+                "pretext": "Ahh yeah! Great choice, COEN 241 is absolutely amazing!",
+                "author_name": "",
+                "author_link": "https://github.com/iraveendra",
+                "author_icon": "https://avatars.githubusercontent.com/u/149436689?v=4",
+                "title": "COEN 241",
+                "title_link": "https://www.scu.edu/engineering/academic-programs/department-of-computer-engineering/graduate/course-descriptions/",
+                "text": "Head over to COEN 241",
+                "image_url": "https://www.scu.edu/media/offices/umc/scu-brand-guidelines/visual-identity-amp-photography/visual-identity-toolkit/logos-amp-seals/Mission-Dont3.png",
+                "thumb_url": "https://www.scu.edu/engineering/academic-programs/department-of-computer-engineering/graduate/course-descriptions/",
+                "footer": "Slack Apps built on OpenFaas",
+                "footer_icon": "https://a.slack-edge.com/45901/marketing/img/_rebrand/meta/slack_hash_256.png",
+                "ts": 123456789
+            }
+        ]
     }
     return json.dumps(data)
